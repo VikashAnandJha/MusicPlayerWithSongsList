@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeezyPlayer</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="main">
+        <div class="left">
+
+            <div class="center">
+                <img src="./logo.png" style="width: 250px;" />
+                <br>
+                
+                <span id="songname"></span><br>
+                <audio id="myplayer" autoplay controls  >
+                
+                </audio>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="right">
+        <ul id="list">
+             
+        </ul>
+
+
+        </div>
+
+
+
+    </div>
+
+<script>
+    $.getJSON("./songslist.json",function(data){
+        
+        data.forEach(song => {
+            
+            $('#list').append('<li data-name="'+song.name+'" data-url="'+song.url+'">'+song.name+'</li>')
+        });
+        
+    })
+
+
+    $(document).ready(function(){
+
+
+        $('li').click(function(){
+            let songUrl=$(this).attr('data-url');
+            let songName=$(this).attr('data-name');
+
+            $('#songname').html(songName)
+ 
+           $('#myplayer').attr("src",songUrl);
+           
+
+
+        })
+
+
+     
+
+
+
+
+    })
+   
+
+
+
+</script>
+  
+    
+</body>
+</html>
